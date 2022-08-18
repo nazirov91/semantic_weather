@@ -30,3 +30,9 @@
 .w-error {
   color: darkred;
 }
+
+.ui.checkbox[class*="right floated"] {
+  float: right !important;
+  margin-right: 1em !important;
+  margin-left: -3em !important;
+}

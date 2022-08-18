@@ -15,6 +15,7 @@ const Weather = () => {
 
   const [inputValue, setInputValue] = useState('');
   const [searchValue, setSearchValue] = useState('dallas');
+  const [unit, setUnit] = useState('f');
   
   const { data, error, loading } = useFetchWeather(
     '/.netlify/functions/getWeather',
@@ -42,7 +43,13 @@ const Weather = () => {
         <Segment textAlign="center">
             {(!loading && data) ? (
               <div>
-                <h1 className="w-h1">{data.temp} °F </h1>
+                <div className="ui checkbox right floated">
+                  <input type="checkbox" checked={unit === 'c'} onChange={() => setUnit(unit === 'f' ? 'c' : 'f')}/>
+                  <label>°C</label>
+                </div>
+                {unit === 'f' ?
+                  (<h1 className="w-h1">{data.temp} °F </h1>) :
+                  (<h1 className="w-h1">{Math.round((data.temp - 32) * 5 / 9)} °C </h1>)}
                 <div>
                     <i className={`wi wi-owm-${data.weather[0].id} w-icon`}/>
                     <p className="w-p">{data.weather[0].main}</p>
